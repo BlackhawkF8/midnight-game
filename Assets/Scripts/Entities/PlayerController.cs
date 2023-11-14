@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor.U2D.Path;
@@ -10,11 +11,15 @@ public class PlayerController : MonoBehaviour{
     [SerializeField] private KeyCode[] movementKeys = new KeyCode[4]; // Up, Right, Down, Left
     [SerializeField ]private bool[] collidingOnEdge = new bool[4]; // Top, Right, Bottom, Left
     private Vector2 moveDelta = Vector2.zero;
+    private Vector2 velocity = Vector2.zero;
+    [SerializeField] private float velocityDivisor = 2f;
+    [SerializeField] Vector2 minMaxVelocity = new Vector2(-5, 5);
     private BoxCollider2D boxCollider;
     private static LevelManager levelManager;
     private TileBase[] surroundingTiles = new TileBase[9];
     private Vector3Int[] surroundingTilePositions = new Vector3Int[9];
     [SerializeField] private float collisionThreshold = .1f;
+    [SerializeField] private float gravity = 1f;
     private void Awake() {
         levelManager = LevelManager.instance;
         boxCollider = GetComponent<BoxCollider2D>();
@@ -40,9 +45,20 @@ public class PlayerController : MonoBehaviour{
     /// </summary>
     private void movementHandle(){
         moveDelta = Vector2.zero;
-        moveDelta.y  += (Input.GetKey(movementKeys[0]) ? walkSpeed*Time.fixedDeltaTime : 0) + (Input.GetKey(movementKeys[2]) ? -walkSpeed*Time.fixedDeltaTime : 0);
-        moveDelta.x  += (Input.GetKey(movementKeys[1]) ? walkSpeed*Time.fixedDeltaTime : 0) + (Input.GetKey(movementKeys[3]) ? -walkSpeed*Time.fixedDeltaTime : 0);
-
+        velocity.y  += (Input.GetKey(movementKeys[0]) ? walkSpeed*Time.fixedDeltaTime : 0) + (Input.GetKey(movementKeys[2]) ? -walkSpeed*Time.fixedDeltaTime : 0);
+        velocity.x  += (Input.GetKey(movementKeys[1]) ? walkSpeed*Time.fixedDeltaTime : 0) + (Input.GetKey(movementKeys[3]) ? -walkSpeed*Time.fixedDeltaTime : 0);
+        velocity.y = Mathf.Clamp(velocity.y, minMaxVelocity.x, minMaxVelocity.y);
+        velocity.x = Mathf.Clamp(velocity.x, minMaxVelocity.x, minMaxVelocity.y);
+        velocity.y /= velocityDivisor;
+        velocity.x /= velocityDivisor;
+        if(Mathf.Abs(velocity.x) < .01f){
+            velocity.x = 0;
+        }
+        if(Mathf.Abs(velocity.y) < .01f){
+            velocity.y = 0;
+        }
+        moveDelta.y += velocity.y;
+        moveDelta.x += velocity.x;
         Vector3Int playerTilePosition = levelManager.tilemap.WorldToCell((Vector2)transform.position+(Vector2.right*.5f));
         for(int i = 0; i < surroundingTilePositions.Length; i++){
             surroundingTiles[i] = levelManager.GetTile(playerTilePosition + surroundingTilePositions[i]);
