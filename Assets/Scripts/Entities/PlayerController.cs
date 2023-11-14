@@ -36,12 +36,10 @@ public class PlayerController : MonoBehaviour{
     }
 
     /// <summary>
-    /// Updates the collisions of the player based on the level bounds and the level tiles
+    /// Updates the players position based on the input and the collision with the tilemap
     /// </summary>
     private void movementHandle(){
-        // reset the movement input
         moveDelta = Vector2.zero;
-        // get the movement input from the player
         moveDelta.y  += (Input.GetKey(movementKeys[0]) ? walkSpeed*Time.fixedDeltaTime : 0) + (Input.GetKey(movementKeys[2]) ? -walkSpeed*Time.fixedDeltaTime : 0);
         moveDelta.x  += (Input.GetKey(movementKeys[1]) ? walkSpeed*Time.fixedDeltaTime : 0) + (Input.GetKey(movementKeys[3]) ? -walkSpeed*Time.fixedDeltaTime : 0);
 
@@ -53,19 +51,19 @@ public class PlayerController : MonoBehaviour{
         for(int i=0;i<4;i++){
             collidingOnEdge[i] = false;
         }
-        Bounds playerBounds = boxCollider.bounds;
-        Bounds simulatedPlayerBounds = new Bounds(playerBounds.center + (Vector3)moveDelta, playerBounds.size);
+        Bounds simulatedPlayerBounds = boxCollider.bounds;
+        simulatedPlayerBounds.center += (Vector3)moveDelta;
         Vector2 collisionMovement = Vector2.zero;
         for(int i = 0; i < surroundingTiles.Length; i++){
             if(!surroundingTiles[i]){
                 continue;
             }
             Bounds tileBounds = levelManager.tilemap.GetBoundsLocal(playerTilePosition + surroundingTilePositions[i]);
+            // Each of these horrible ifs checks if the player is colliding with the tile and if so, moves the player out of the tile
             if(collisionMovement.y == 0 && simulatedPlayerBounds.max.y >= tileBounds.min.y && simulatedPlayerBounds.min.y < tileBounds.min.y && simulatedPlayerBounds.max.x > tileBounds.min.x +collisionThreshold && simulatedPlayerBounds.min.x < tileBounds.max.x - collisionThreshold){
                 collidingOnEdge[0] = true;
                 float distance = tileBounds.min.y - simulatedPlayerBounds.max.y;
                 collisionMovement.y += distance;
-                
             }
             if(collisionMovement.x == 0 && simulatedPlayerBounds.min.x <= tileBounds.max.x && simulatedPlayerBounds.max.x > tileBounds.max.x && simulatedPlayerBounds.max.y > tileBounds.min.y + collisionThreshold && simulatedPlayerBounds.min.y < tileBounds.max.y - collisionThreshold){
                 collidingOnEdge[1] = true;
@@ -83,10 +81,7 @@ public class PlayerController : MonoBehaviour{
                 collisionMovement.x += distance;
             }
         }
-
         transform.position = roundVectorToPlaces((Vector2)transform.position + moveDelta + collisionMovement, 2);
-
-
     }
     private Vector2 roundVectorToPlaces(Vector2 vector, int places){
         return new Vector2(Mathf.Round(vector.x * Mathf.Pow(10, places)) / Mathf.Pow(10, places), Mathf.Round(vector.y * Mathf.Pow(10, places)) / Mathf.Pow(10, places));
