@@ -165,7 +165,7 @@ TextureImporter:
       213: 7533520378343742539
     second: autotile_tileset_53
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -186,6 +186,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -224,6 +225,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -239,6 +241,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1396,6 +1422,61 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      autotile_tileset_0: -6318678285031489824
+      autotile_tileset_1: -7814156547749468790
+      autotile_tileset_10: -8544969115720123968
+      autotile_tileset_11: -5301853836167433332
+      autotile_tileset_12: 6767342561088690961
+      autotile_tileset_13: -1922539000564004329
+      autotile_tileset_14: 6083343085079835801
+      autotile_tileset_15: -7489559952139306273
+      autotile_tileset_16: 3688480553854758551
+      autotile_tileset_17: 4215220343472566626
+      autotile_tileset_18: -8961239556002537694
+      autotile_tileset_19: -4655919088096844571
+      autotile_tileset_2: 7222509984961320956
+      autotile_tileset_20: 7952490522299753328
+      autotile_tileset_21: -7897922504731599949
+      autotile_tileset_22: 4729129682547074226
+      autotile_tileset_23: 2926313785523626185
+      autotile_tileset_24: -186450738273480271
+      autotile_tileset_25: 562013848107692480
+      autotile_tileset_26: -5935192775571962765
+      autotile_tileset_27: 3733823023102072569
+      autotile_tileset_28: -6389602651889712675
+      autotile_tileset_29: 962191804029152183
+      autotile_tileset_3: 6701303863128334601
+      autotile_tileset_30: -7006712929734664893
+      autotile_tileset_31: 2989201020067996294
+      autotile_tileset_32: 1870152894596127882
+      autotile_tileset_33: -5038217101156284816
+      autotile_tileset_34: 4191932742824564402
+      autotile_tileset_35: 2539203657558185531
+      autotile_tileset_36: -6630598828949161616
+      autotile_tileset_37: -7524370532247995602
+      autotile_tileset_38: 864779745846581268
+      autotile_tileset_39: -4686334240469463447
+      autotile_tileset_4: 7945259994943056140
+      autotile_tileset_40: -5614124833668423144
+      autotile_tileset_41: -1486727906927444567
+      autotile_tileset_42: -327494859087643703
+      autotile_tileset_43: -1622861348084347206
+      autotile_tileset_44: 7879514083675272720
+      autotile_tileset_45: -6516624103029989841
+      autotile_tileset_46: -4935221419140069780
+      autotile_tileset_47: 2541767482710703661
+      autotile_tileset_48: -6537422086359907300
+      autotile_tileset_49: 1796884934996628636
+      autotile_tileset_5: -743345146488940924
+      autotile_tileset_50: -5374745993175202994
+      autotile_tileset_51: 9195064574519289864
+      autotile_tileset_52: 2392304086012039017
+      autotile_tileset_53: 7533520378343742539
+      autotile_tileset_6: 5092115374719348908
+      autotile_tileset_7: 2752534031673432299
+      autotile_tileset_8: 6445951259994895172
+      autotile_tileset_9: 5987699617257022411
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
