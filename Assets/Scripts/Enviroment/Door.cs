@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(TriggerArea))]
 public class Door : MonoBehaviour {
-    [SerializeField] private Vector2 destination;
+    public Vector2 destination;
     [SerializeField] private bool startsClosed = true;
     [SerializeField] private bool isLocked = false;
     [SerializeField] private Item key;
@@ -19,6 +19,10 @@ public class Door : MonoBehaviour {
     public void GoThroughDoor(){
         if(!isLocked){
             PlayerController.instance.transform.position = destination;
+            NPCHandle[] npcs = FindObjectsOfType<NPCHandle>();
+            foreach(NPCHandle npc in npcs){
+                npc.GoThroughDoor(this);
+            }
         }else{
             print("Door is locked");
         }

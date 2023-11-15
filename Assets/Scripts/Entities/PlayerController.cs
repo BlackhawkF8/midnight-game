@@ -83,10 +83,10 @@ public class PlayerController : MonoBehaviour{
             Bounds tileBounds = levelManager.tilemap.GetBoundsLocal(playerTilePosition + surroundingTilePositions[i]);
             tileBounds.center += (Vector3)levelManager.tilemapOffset;
             Vector2 offset = getMovementOffset(simulatedPlayerBounds, tileBounds);
-            if(Mathf.Abs(offset.x) < Mathf.Abs(collisionMovement.x)){
+            if(collisionMovement.x == 0){
                 collisionMovement.x = offset.x;
             }
-            if(Mathf.Abs(offset.y) < Mathf.Abs(collisionMovement.y)){
+            if(collisionMovement.y == 0){
                 collisionMovement.y = offset.y;
             }
         }

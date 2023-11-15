@@ -5,6 +5,8 @@ public class UserInterfaceManager : MonoBehaviour {
     public static UserInterfaceManager instance;
     private Dictionary<string, UserInterface> userInterfaces;
     public List<UserInterface> activeUserInterfaces = new List<UserInterface>();
+    private DialogueManager dialogueManager;
+    private Keytip keytip;
 
     private void Awake() {
         if(instance == null){
@@ -17,6 +19,13 @@ public class UserInterfaceManager : MonoBehaviour {
             userInterfaces.Add(ui.id, ui);
         }
     }
+
+    private void Start() {
+        dialogueManager = DialogueManager.instance;
+        keytip = Keytip.instance;
+    }
+
+    
 
     public void Open(string id){
         UserInterface ui = GetUI(id);
@@ -66,11 +75,5 @@ public class UserInterfaceManager : MonoBehaviour {
             return userInterfaces[id];
         }
         return null;
-    }
-
-    public void OpenDialogue(Dialogue dialogue){
-        Open("dialogue");
-        DialogueUI dialogueUI = GetUI("Dialogue").GetComponent<DialogueUI>();
-        dialogueUI.SetDialogue(dialogue);
     }
 }

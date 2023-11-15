@@ -16,4 +16,16 @@ MonoBehaviour:
   sentences:
   - This door is locked!
   - It needs a {0} to open it
+  options:
+  - Walk away
+  - Kick it down
+  events:
+  - m_PersistentCalls:
+      m_Calls: []
+  - m_PersistentCalls:
+      m_Calls: []
   character: {fileID: 11400000, guid: 31d7ab072af32bd45a24eba46ce2f9fc, type: 2}
+  playerHasToHave: []
+  playerHasToNotHave: []
+  playerHasToHaveHeard: []
+  playerHasToNotHaveHeard: []

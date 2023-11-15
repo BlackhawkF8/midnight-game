@@ -2,11 +2,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class TriggerArea : MonoBehaviour {
-    public Bounds bounds;
+    private BoxCollider2D boxCollider;
     private static PlayerController player;
     public bool isTriggered = false;
     public bool isOneShot = false;
     public KeyCode key = KeyCode.None;
+    public string keyText = "";
+    public Vector2 keyTipOffset = Vector2.up;
     [Tooltip("should a icon pop up to show which key to press?")]public bool showKeyTip = true;
     public UnityEngine.Events.UnityEvent onEnter;
     public UnityEngine.Events.UnityEvent onStay;
@@ -14,7 +16,7 @@ public class TriggerArea : MonoBehaviour {
     public UnityEngine.Events.UnityEvent onKey;
 
     private void Awake() {
-        bounds = GetComponent<BoxCollider2D>().bounds;
+        boxCollider = GetComponent<BoxCollider2D>();
     }
     private void Start(){
         player = PlayerController.instance;
@@ -24,7 +26,7 @@ public class TriggerArea : MonoBehaviour {
 
     private void Update(){
         if(player != null){
-            if(bounds.Contains(player.boxCollider.bounds.center)){
+            if(boxCollider.bounds.Contains(player.transform.position)){
                 onPlayerStay();
             }else{
                 if(isTriggered){
@@ -49,13 +51,19 @@ public class TriggerArea : MonoBehaviour {
     }
     private void onPlayerEnter(){
         onEnter.Invoke();
+        if(showKeyTip){
+            Keytip.instance.Activate(key, keyText, onKey, (Vector2)boxCollider.bounds.center + keyTipOffset );
+        }
     }
     private void onPlayerLeave(){
         onLeave.Invoke();
+        if(showKeyTip){
+            Keytip.instance.Deactivate();
+        }
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(bounds.center, bounds.size);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(GetComponent<BoxCollider2D>().bounds.center, GetComponent<BoxCollider2D>().bounds.size);
     }
 }
